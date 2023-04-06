@@ -39,7 +39,7 @@
 							}
 						}
 					],
-					"_postman_id": "23f71c02-03e5-4f43-825e-1b08e6b2e5b7",
+					"id": "23f71c02-03e5-4f43-825e-1b08e6b2e5b7",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -56,15 +56,14 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"password123\"\n}",
-							"options": {}
+							"raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"password123\"\n}"
 						},
 						"url": "{{baseURL}}/auth"
 					},
 					"response": []
 				}
 			],
-			"_postman_id": "6eca8974-b357-48ca-839a-6b57ae289f39",
+			"id": "6eca8974-b357-48ca-839a-6b57ae289f39",
 			"auth": {
 				"type": "noauth"
 			},
@@ -179,7 +178,7 @@
 							}
 						}
 					],
-					"_postman_id": "1a308bdc-4c66-4b5c-8c6a-32d9524bec19",
+					"id": "1a308bdc-4c66-4b5c-8c6a-32d9524bec19",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -241,7 +240,7 @@
 							}
 						}
 					],
-					"_postman_id": "8bbba8e3-cddc-4355-b92c-968e9affba09",
+					"id": "8bbba8e3-cddc-4355-b92c-968e9affba09",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -375,7 +374,7 @@
 							}
 						}
 					],
-					"_postman_id": "71cd0860-8b0e-4a8b-a447-cde5de93dcce",
+					"id": "71cd0860-8b0e-4a8b-a447-cde5de93dcce",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -445,7 +444,7 @@
 							}
 						}
 					],
-					"_postman_id": "46e7895b-24ea-4fed-a251-ad7a87523d70",
+					"id": "46e7895b-24ea-4fed-a251-ad7a87523d70",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -485,7 +484,7 @@
 									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
 									"});\r",
 									"\r",
-									"console.log(\"hi\");"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -527,7 +526,7 @@
 							}
 						}
 					],
-					"_postman_id": "8afe1d39-cb07-4910-a9fd-01212e11e0ac",
+					"id": "8afe1d39-cb07-4910-a9fd-01212e11e0ac",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -614,7 +613,7 @@
 							}
 						}
 					],
-					"_postman_id": "66c54cb5-b975-4342-b651-c61ad5c1d223",
+					"id": "66c54cb5-b975-4342-b651-c61ad5c1d223",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -629,7 +628,7 @@
 					"response": []
 				}
 			],
-			"_postman_id": "36641e30-169d-4e60-9a00-c05d6c552829",
+			"id": "36641e30-169d-4e60-9a00-c05d6c552829",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -658,7 +657,7 @@
 			"item": [
 				{
 					"name": "HealthCheck",
-					"_postman_id": "f3dfc39f-78e5-4b43-8ea7-e2e7a855343a",
+					"id": "f3dfc39f-78e5-4b43-8ea7-e2e7a855343a",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -670,7 +669,7 @@
 					"response": []
 				}
 			],
-			"_postman_id": "601d4daa-191b-4938-ac15-321e97c509c0",
+			"id": "601d4daa-191b-4938-ac15-321e97c509c0",
 			"auth": {
 				"type": "noauth"
 			},
@@ -729,46 +728,39 @@
 	],
 	"variable": [
 		{
-			"id": "9f0fcfdb-c2e1-438d-8c44-3353babf0231",
+			"id": "a9cdb0e3-908d-400d-b26f-5d5a1521eff3",
 			"key": "bookingID",
-			"value": "",
-			"type": "string"
+			"value": ""
 		},
 		{
-			"id": "38cc1ae7-fb0c-4c4b-ac72-76dad1992a24",
+			"id": "b22bc172-602f-4180-a13c-3723fc2af71f",
 			"key": "lastname",
-			"value": "",
-			"type": "string"
+			"value": ""
 		},
 		{
-			"id": "482a3ce1-8be0-43e4-a73b-f07cd49b63fd",
+			"id": "fa8896dd-068e-43f4-a167-f9f31fe5e924",
 			"key": "firstname",
-			"value": "",
-			"type": "string"
+			"value": ""
 		},
 		{
-			"id": "39150d0e-5081-412e-bf64-10ac78414109",
+			"id": "90938c5e-7a06-4679-bce7-e43d08104be6",
 			"key": "checkin",
-			"value": "",
-			"type": "string"
+			"value": ""
 		},
 		{
-			"id": "b9512424-038e-4587-9247-40c8db6339c8",
+			"id": "40db4543-529c-4f14-aed8-e9c175945799",
 			"key": "checkout",
-			"value": "",
-			"type": "string"
+			"value": ""
 		},
 		{
-			"id": "4deadb6d-db3c-4f91-87d1-78802c1cedbf",
+			"id": "9a3addfb-e25b-4a96-84c0-4dd31ef84276",
 			"key": "additionalNeeds",
-			"value": "",
-			"type": "string"
+			"value": ""
 		},
 		{
-			"id": "f1720b79-426a-4faf-9d8f-2e3a4a586036",
+			"id": "cb514d44-06b1-4069-bb3c-f251ae934768",
 			"key": "runOnce",
-			"value": "",
-			"type": "string"
+			"value": ""
 		}
 	]
 }
