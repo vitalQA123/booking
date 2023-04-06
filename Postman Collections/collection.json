@@ -555,6 +555,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"id": "65ec55de-8eeb-4c38-ac7a-a38eba7899c7",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
@@ -568,17 +569,18 @@
 									"pm.collectionVariables.set(\"runOnce\", true);\r",
 									"\r",
 									"\r",
-									"console.log(\"Hi new print\");\r",
 									"\r",
-									"console.log(\"senarios2\")"
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
 								],
-								"type": "text/javascript",
-								"id": "65ec55de-8eeb-4c38-ac7a-a38eba7899c7"
+								"type": "text/javascript"
 							}
 						},
 						{
 							"listen": "prerequest",
 							"script": {
+								"id": "6ec09d56-e179-4952-b309-5a5d44a65212",
 								"exec": [
 									"const checkin = new Date();\r",
 									"\r",
@@ -608,8 +610,7 @@
 									"pm.collectionVariables.set(\"additionalNeeds\", additionalNeeds[randomIndex]);\r",
 									""
 								],
-								"type": "text/javascript",
-								"id": "6ec09d56-e179-4952-b309-5a5d44a65212"
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -728,37 +729,37 @@
 	],
 	"variable": [
 		{
-			"id": "a9cdb0e3-908d-400d-b26f-5d5a1521eff3",
+			"id": "dbc5fd83-d699-45a3-98df-46b79b04c26e",
 			"key": "bookingID",
 			"value": ""
 		},
 		{
-			"id": "b22bc172-602f-4180-a13c-3723fc2af71f",
+			"id": "1315140c-bdb7-422d-81d4-e7a0bf5513c9",
 			"key": "lastname",
 			"value": ""
 		},
 		{
-			"id": "fa8896dd-068e-43f4-a167-f9f31fe5e924",
+			"id": "09e22928-940d-4418-9439-fce749247cf1",
 			"key": "firstname",
 			"value": ""
 		},
 		{
-			"id": "90938c5e-7a06-4679-bce7-e43d08104be6",
+			"id": "b5c1e418-23ec-4ed0-9bca-4a4e56087f0d",
 			"key": "checkin",
 			"value": ""
 		},
 		{
-			"id": "40db4543-529c-4f14-aed8-e9c175945799",
+			"id": "a959cb06-0ad5-492b-9b28-d5b0686c4c47",
 			"key": "checkout",
 			"value": ""
 		},
 		{
-			"id": "9a3addfb-e25b-4a96-84c0-4dd31ef84276",
+			"id": "cc4c4cd4-dce3-4272-849c-fba254111d95",
 			"key": "additionalNeeds",
 			"value": ""
 		},
 		{
-			"id": "cb514d44-06b1-4069-bb3c-f251ae934768",
+			"id": "6202b98e-e508-4c1c-92c9-b4ab63b808ed",
 			"key": "runOnce",
 			"value": ""
 		}
