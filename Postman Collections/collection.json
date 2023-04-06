@@ -1,0 +1,774 @@
+{
+	"info": {
+		"_postman_id": "fae15b8c-411f-4a5a-ac94-6ca6e5e64e44",
+		"name": "BookingSite",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "CreateToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var URL = pm.environment.get(\"baseURL\");\r",
+									"\r",
+									"var jsonData=pm.response.json();\r",
+									"\r",
+									"var tokenVal=jsonData.token;\r",
+									"\r",
+									"\r",
+									"const cookieJar = pm.cookies.jar();\r",
+									"\r",
+									"\r",
+									"// create a cookie\r",
+									"cookieJar.set(URL, \"token\", tokenVal, (error, cookie)=>{\r",
+									"\r",
+									"    if(error){\r",
+									"        console.log(error);\r",
+									"    }\r",
+									"    console.log(cookie);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "84ea1566-8f15-4177-bdde-d139dde2eede"
+							}
+						}
+					],
+					"_postman_id": "23f71c02-03e5-4f43-825e-1b08e6b2e5b7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"password123\"\n}",
+							"options": {}
+						},
+						"url": "{{baseURL}}/auth"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "6eca8974-b357-48ca-839a-6b57ae289f39",
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						],
+						"id": "953bc617-8b55-4c75-8d74-c34e1353e787"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						],
+						"id": "86c26532-3ded-4151-9aed-7eca42bef2b6"
+					}
+				}
+			]
+		},
+		{
+			"name": "Booking",
+			"item": [
+				{
+					"name": "GetBookingIds",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"/* data visualization part*/\r",
+									"\r",
+									"var template = `\r",
+									"<div>Total Bookings <span>{{response.length}}</span></div>\r",
+									"<table>\r",
+									"  <tr bgcolor=\"#00bfff\">\r",
+									"    <th>Booking No</th>\r",
+									"    <th>Booking ID</th>\r",
+									"  </tr>\r",
+									"  {{#each response}}\r",
+									"  <tr bgcolor=\"#00ffbf\">\r",
+									"    <td>{{@key}}</td>\r",
+									"    <td>{{bookingid}}</td>\r",
+									"  </tr>\r",
+									"  {{/each}}\r",
+									"</table>`;\r",
+									"\r",
+									"\r",
+									"pm.visualizer.set(template,{\r",
+									" response:pm.response.json()\r",
+									"});\r",
+									"\r",
+									"//----------------------------\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var bid;\r",
+									"\r",
+									"\r",
+									"  if(jsonData.length>0){\r",
+									"        bid=jsonData[0].bookingid;\r",
+									"    }\r",
+									"\r",
+									"    pm.test(\"Check booking data exists\", function () {\r",
+									"    pm.expect(bid).not.null;\r",
+									"    });\r",
+									"\r",
+									"    //Save booking id\r",
+									"     pm.collectionVariables.set(\"bookingID\", bid);\r",
+									"\r",
+									"\r",
+									"var check=pm.collectionVariables.get(\"runOnce\");\r",
+									"\r",
+									"if(check){\r",
+									"\r",
+									"    pm.collectionVariables.set(\"runOnce\", false);\r",
+									"postman.setNextRequest(\"d08ec587-80a4-44cc-a0b4-229733fd3465\");\r",
+									"}\r",
+									"\r",
+									"    \r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									" "
+								],
+								"type": "text/javascript",
+								"id": "4f707236-9ee8-4131-9fc6-1fd2ea784c5d"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"firstname\", \"Bob\");\r",
+									"pm.collectionVariables.set(\"lastname\", \"Smith\");"
+								],
+								"type": "text/javascript",
+								"id": "58abb8c3-df88-43bf-9aba-7af331fc04f9"
+							}
+						}
+					],
+					"_postman_id": "1a308bdc-4c66-4b5c-8c6a-32d9524bec19",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/booking?firstname={{firstname}}&lastname={{lastname}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"booking"
+							],
+							"query": [
+								{
+									"key": "firstname",
+									"value": "{{firstname}}"
+								},
+								{
+									"key": "lastname",
+									"value": "{{lastname}}"
+								}
+							]
+						},
+						"description": "StartFragment\n\n- Status code is 200\n- Check booking data exists\n    \n\nEndFragment"
+					},
+					"response": []
+				},
+				{
+					"name": "GetBooking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var fname = pm.collectionVariables.get(\"firstname\");\r",
+									"var lname = pm.collectionVariables.get(\"lastname\");\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check the \"+fname+\" \"+lname+\" booking detals are correct\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.firstname).to.eql(fname);\r",
+									"    pm.expect(jsonData.lastname).to.eql(lname);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"id": "1215a5a0-d890-4712-ae92-d8d6c616b049"
+							}
+						}
+					],
+					"_postman_id": "8bbba8e3-cddc-4355-b92c-968e9affba09",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseURL}}/booking/{{bookingID}}",
+						"description": "StartFragment\n\nReturns a specific booking based upon the booking id provided\n\nEndFragment"
+					},
+					"response": []
+				},
+				{
+					"name": "CreateBooking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var baseURL = pm.environment.get(\"baseURL\");\r",
+									"\r",
+									"\r",
+									"    var jsonData = pm.response.json();\r",
+									"\r",
+									"    var bid=jsonData.bookingid;\r",
+									"    var expFname=jsonData.booking.firstname;\r",
+									"    \r",
+									"\r",
+									"    pm.collectionVariables.set(\"bookingID\", bid);\r",
+									"    \r",
+									"\r",
+									"\r",
+									"const request1={\r",
+									"    url:baseURL+\"/booking/\"+bid,\r",
+									"    method:'GET',\r",
+									"    header: {\r",
+									"\t\t\t'Content-Type': 'application/json'\r",
+									"\t\t}\r",
+									"}\r",
+									"\r",
+									"\r",
+									"pm.sendRequest(request1, function (err, response) {\r",
+									"\r",
+									"    var jsonData = response.json();\r",
+									"    \r",
+									"pm.test(\"Check user name saved correctly\", function () {\r",
+									"    var actFname= jsonData.firstname;\r",
+									"    pm.expect(expFname).to.be.eql(actFname,\"fname not correctly saved\");\r",
+									"});\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"const postrequest1={\r",
+									"    url:baseURL+\"/booking\",\r",
+									"    method:'POST',\r",
+									"    header: {\r",
+									"\t\t\t'Content-Type': 'application/json'\r",
+									"\t\t},\r",
+									"    body:{\r",
+									"        mode:'raw',\r",
+									"        raw:JSON.stringify({\r",
+									"                \"firstname\" : \"Everett\",\r",
+									"                \"lastname\" : \"Botsford\",\r",
+									"                \"totalprice\" : \"dfdf\",\r",
+									"                \"depositpaid\" : true,\r",
+									"                \"bookingdates\" : {\r",
+									"                    \"checkin\" : \"2023-03-27\",\r",
+									"                    \"checkout\" : \"2023-03-29\"\r",
+									"                 },\r",
+									"             \"additionalneeds\" : \"Lunch\"\r",
+									"            }\r",
+									"        )}\r",
+									"}\r",
+									"\r",
+									"\r",
+									"pm.sendRequest(postrequest1, function (err, response) {\r",
+									"\r",
+									"    var jsonData = response.json();\r",
+									"    \r",
+									"pm.test(\"Validate correct price value format accepted by system\", function () {\r",
+									"    pm.expect(jsonData.booking.totalprice).to.be.null;\r",
+									"});\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"id": "bb3981f4-12a3-4554-b42e-318c95eb92cb"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const checkin = new Date();\r",
+									"\r",
+									"var year =checkin.getFullYear();\r",
+									"var month =checkin.getMonth();\r",
+									"var day = checkin.getDate();\r",
+									"\r",
+									"\r",
+									"\r",
+									"const checkout= new Date(year,month,day+3);\r",
+									"\r",
+									"var formatCheckin=checkin.toISOString();\r",
+									"var formatCheckout=checkout.toISOString();\r",
+									"\r",
+									"formatCheckin=formatCheckin.split(\"T\");\r",
+									"formatCheckout=formatCheckout.split(\"T\");\r",
+									"\r",
+									"\r",
+									"pm.collectionVariables.set(\"checkin\", formatCheckin[0]);\r",
+									"pm.collectionVariables.set(\"checkout\", formatCheckout[0]);\r",
+									"\r",
+									"\r",
+									"\r",
+									"var additionalNeeds = [\"BreakFast\",\"Lunch\",\"Dinner\"];\r",
+									"\r",
+									"var randomIndex=_.random(0,2);\r",
+									"pm.collectionVariables.set(\"additionalNeeds\", additionalNeeds[randomIndex]);\r",
+									""
+								],
+								"type": "text/javascript",
+								"id": "0fb6a40c-943d-4763-b402-5a94832839ef"
+							}
+						}
+					],
+					"_postman_id": "71cd0860-8b0e-4a8b-a447-cde5de93dcce",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"{{$randomFirstName}}\",\r\n    \"lastname\": \"{{$randomLastName}}\",\r\n    \"totalprice\": {{$randomPrice}},\r\n    \"depositpaid\": true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"{{checkin}}\",\r\n        \"checkout\": \"{{checkout}}\"\r\n    },\r\n    \"additionalneeds\": \"{{additionalNeeds}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/booking"
+					},
+					"response": []
+				},
+				{
+					"name": "updateBooking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "68489d27-b0de-4cb0-9e3a-f167a0df2941",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1a06e2c7-8c70-4aba-8b24-a49007c31776",
+								"exec": [
+									"const checkin = new Date();\r",
+									"\r",
+									"var year =checkin.getFullYear();\r",
+									"var month =checkin.getMonth();\r",
+									"var day = checkin.getDate();\r",
+									"\r",
+									"\r",
+									"\r",
+									"const checkout= new Date(year,month,day+3);\r",
+									"\r",
+									"var formatCheckin=checkin.toISOString();\r",
+									"var formatCheckout=checkout.toISOString();\r",
+									"\r",
+									"formatCheckin=formatCheckin.split(\"T\");\r",
+									"formatCheckout=formatCheckout.split(\"T\");\r",
+									"\r",
+									"\r",
+									"pm.collectionVariables.set(\"checkin\", formatCheckin[0]);\r",
+									"pm.collectionVariables.set(\"checkout\", formatCheckout[0]);\r",
+									"\r",
+									"\r",
+									"\r",
+									"var additionalNeeds = [\"BreakFast\",\"Lunch\",\"Dinner\"];\r",
+									"\r",
+									"var randomIndex=_.random(0,2);\r",
+									"pm.collectionVariables.set(\"additionalNeeds\", additionalNeeds[randomIndex]);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "46e7895b-24ea-4fed-a251-ad7a87523d70",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\" : \"{{$randomFirstName}}\",\r\n    \"lastname\" : \"{{$randomLastName}}\",\r\n    \"totalprice\" : {{$randomPrice}},\r\n    \"depositpaid\" : true,\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"{{checkin}}\",\r\n        \"checkout\" : \"{{checkout}}\"\r\n    },\r\n    \"additionalneeds\" : \"{{additionalNeeds}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/booking/{{bookingID}}"
+					},
+					"response": []
+				},
+				{
+					"name": "updateBooking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "62b2a3f0-856b-4fe6-af43-0dd495fbebd2",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"console.log(\"hi\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5701a17d-78fe-4cba-873b-79eb4c48e2e2",
+								"exec": [
+									"const checkin = new Date();\r",
+									"\r",
+									"var year =checkin.getFullYear();\r",
+									"var month =checkin.getMonth();\r",
+									"var day = checkin.getDate();\r",
+									"\r",
+									"\r",
+									"\r",
+									"const checkout= new Date(year,month,day+3);\r",
+									"\r",
+									"var formatCheckin=checkin.toISOString();\r",
+									"var formatCheckout=checkout.toISOString();\r",
+									"\r",
+									"formatCheckin=formatCheckin.split(\"T\");\r",
+									"formatCheckout=formatCheckout.split(\"T\");\r",
+									"\r",
+									"\r",
+									"pm.collectionVariables.set(\"checkin\", formatCheckin[0]);\r",
+									"pm.collectionVariables.set(\"checkout\", formatCheckout[0]);\r",
+									"\r",
+									"\r",
+									"\r",
+									"var additionalNeeds = [\"BreakFast\",\"Lunch\",\"Dinner\"];\r",
+									"\r",
+									"var randomIndex=_.random(0,2);\r",
+									"pm.collectionVariables.set(\"additionalNeeds\", additionalNeeds[randomIndex]);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"_postman_id": "8afe1d39-cb07-4910-a9fd-01212e11e0ac",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\" : \"Akila\",\r\n    \"lastname\" : \"Viraj\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseURL}}/booking/{{bookingID}}"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteBooking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"    postman.setNextRequest(\"14548945-7115-4cf2-9930-68db9dd1cd9d\");\r",
+									"\r",
+									"\r",
+									"pm.collectionVariables.set(\"runOnce\", true);\r",
+									"\r",
+									"\r",
+									"console.log(\"Hi new print\");\r",
+									"\r",
+									"console.log(\"senarios2\")"
+								],
+								"type": "text/javascript",
+								"id": "65ec55de-8eeb-4c38-ac7a-a38eba7899c7"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const checkin = new Date();\r",
+									"\r",
+									"var year =checkin.getFullYear();\r",
+									"var month =checkin.getMonth();\r",
+									"var day = checkin.getDate();\r",
+									"\r",
+									"\r",
+									"\r",
+									"const checkout= new Date(year,month,day+3);\r",
+									"\r",
+									"var formatCheckin=checkin.toISOString();\r",
+									"var formatCheckout=checkout.toISOString();\r",
+									"\r",
+									"formatCheckin=formatCheckin.split(\"T\");\r",
+									"formatCheckout=formatCheckout.split(\"T\");\r",
+									"\r",
+									"\r",
+									"pm.collectionVariables.set(\"checkin\", formatCheckin[0]);\r",
+									"pm.collectionVariables.set(\"checkout\", formatCheckout[0]);\r",
+									"\r",
+									"\r",
+									"\r",
+									"var additionalNeeds = [\"BreakFast\",\"Lunch\",\"Dinner\"];\r",
+									"\r",
+									"var randomIndex=_.random(0,2);\r",
+									"pm.collectionVariables.set(\"additionalNeeds\", additionalNeeds[randomIndex]);\r",
+									""
+								],
+								"type": "text/javascript",
+								"id": "6ec09d56-e179-4952-b309-5a5d44a65212"
+							}
+						}
+					],
+					"_postman_id": "66c54cb5-b975-4342-b651-c61ad5c1d223",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseURL}}/booking/{{bookingID}}"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "36641e30-169d-4e60-9a00-c05d6c552829",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						],
+						"id": "9c2d91b0-3bb1-465e-9eb3-e8a356b66054"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						],
+						"id": "c0136099-fb3e-4e7f-be26-48a72f633822"
+					}
+				}
+			]
+		},
+		{
+			"name": "Ping",
+			"item": [
+				{
+					"name": "HealthCheck",
+					"_postman_id": "f3dfc39f-78e5-4b43-8ea7-e2e7a855343a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseURL}}/ping"
+					},
+					"response": []
+				}
+			],
+			"_postman_id": "601d4daa-191b-4938-ac15-321e97c509c0",
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						],
+						"id": "49231645-23ee-4301-aafb-a296f7faa8d3"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						],
+						"id": "4014f8d9-d529-48e6-abf5-1276ef299175"
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": {
+			"username": "admin",
+			"password": "password123"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				],
+				"id": "2104b694-3d9e-4252-b1df-8cd90ffdc41d"
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				],
+				"id": "71cf4d1c-2a19-49b5-9bbb-1523c848d5e2"
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "9f0fcfdb-c2e1-438d-8c44-3353babf0231",
+			"key": "bookingID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "38cc1ae7-fb0c-4c4b-ac72-76dad1992a24",
+			"key": "lastname",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "482a3ce1-8be0-43e4-a73b-f07cd49b63fd",
+			"key": "firstname",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "39150d0e-5081-412e-bf64-10ac78414109",
+			"key": "checkin",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "b9512424-038e-4587-9247-40c8db6339c8",
+			"key": "checkout",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "4deadb6d-db3c-4f91-87d1-78802c1cedbf",
+			"key": "additionalNeeds",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "f1720b79-426a-4faf-9d8f-2e3a4a586036",
+			"key": "runOnce",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
